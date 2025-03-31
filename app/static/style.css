@@ -1,0 +1,110 @@
+html {
+  font-family: Helvetica, sans-serif;
+  color: #000000;
+}
+
+a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+.container {
+  width: 90%;
+  margin: auto;
+}
+
+.content {
+  margin: 0.75em 200px;
+  padding: 0.75em;
+}
+
+.category > a {
+  font-weight: bold;
+}
+
+.category {
+  margin: 0.75em;
+  padding: 0.5em;
+}
+
+.red  {
+  border: 0.2em solid #b3476c;
+  background-color: #b3476c20;
+
+  a:hover, h1, h2, h3, h4, h5, h6 {
+    color: #b3476c;
+  }
+}
+
+.purple  {
+  border: 0.2em solid #9247b3;
+  background-color: #9247b320;
+
+  a:hover, h1, h2, h3, h4, h5, h6 {
+    color: #9247b3;
+  }
+}
+
+.blue {
+  border: 0.2em solid #4759b3;
+  background-color: #4759b320;
+
+  a:hover, h1, h2, h3, h4, h5, h6 {
+    color: #4759b3;
+  }
+}
+
+.teal {
+  border: 0.2em solid #479cb3;
+  background-color: #479cb320;
+
+  a:hover, h1, h2, h3, h4, h5, h6 {
+    color: #479cb3;
+  }
+}
+
+.green {
+  border: 0.2em solid #4db347;
+  background-color: #4db34720;
+
+  a:hover, h1, h2, h3, h4, h5, h6 {
+    color: #4db347;
+  }
+}
+
+.category {
+  h1, h2, h3, h4, h5, h6 {
+    cursor: default;
+  }
+}
+
+.red, .purple, .blue, .teal, .green {
+  border-width: 0 0.2em;
+}
+
+nav {
+  width: 200px;
+  float: left;
+  position: fixed;
+  height: 100%;
+  top: 0;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    padding: 0.125em 0.75em;
+  }
+
+  a {
+    font-weight: normal;
+    color: black;
+  }
+}
