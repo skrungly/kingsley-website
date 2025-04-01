@@ -11,32 +11,16 @@
         <div class="sidebar__group colour-block--red">
           <a href="/" class="sidebar__title">kingsley website :D</a>
         </div>
-        <div class="sidebar__group colour-block--purple">
-          <a href="#" class="sidebar__title">photography</a>
+        {% for group in sidebar.values() %}
+        <div class="sidebar__group colour-block--{{ group.colour }}">
+          <a href="#" class="sidebar__title">{{ group.title }}</a>
           <ul>
-            <li><a href="/photography/gallery">gallery</a></li>
-            <li><a href="/photography/equipment">equipment</a></li>
+            {% for page, page_url in group.pages.items() %}
+            <li><a href="{{ page_url }}">{{ page }}</a></li>
+            {% endfor %}
           </ul>
         </div>
-        <div class="sidebar__group colour-block--blue">
-          <a href="#" class="sidebar__title">cubing</a>
-          <ul>
-            <li><a href="/cubing/progress">progress</a></li>
-          </ul>
-        </div>
-        <div class="sidebar__group colour-block--teal">
-          <a href="#" class="sidebar__title">services</a>
-          <ul>
-            <li><a href="https://osu.skrungly.com/">osu!</a></li>
-            <li><a href="/services/minecraft">minecraft</a></li>
-          </ul>
-        </div>
-        <div class="sidebar__group colour-block--green">
-          <a href="#" class="sidebar__title">other</a>
-          <ul>
-            <li><a href="/other/hmmmmmmmm">hmmmmmmmm</a></li>
-          </ul>
-        </div>
+        {% endfor %}
         <div class="sidebar__group colour-block--black">
           <a href="https://github.com/skrungly/kingsley-website" class="sidebar__title">source</a>
         </div>

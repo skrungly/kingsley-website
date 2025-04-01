@@ -1,26 +1,32 @@
-from flask import render_template
+import pathlib
+
+from flask import abort, render_template
+
 from app import app
+from app.constants import TEMPLATES_PATH, SIDEBAR_LAYOUT
+
 
 @app.route("/")
 def index():
-    return render_template("base.html", title="home", content_colour="red")
+    return render_template(
+        "index.html",
+        title="home",
+        content_colour="red",
+        sidebar=SIDEBAR_LAYOUT,
+    )
 
-@app.route("/photography/gallery")
-def photo_gallery():
-    return render_template("photography/gallery.html", title="gallery", content_colour="purple")
 
-@app.route("/photography/equipment")
-def photo_equipment():
-    return render_template("photography/equipment.html", title="equipment", content_colour="purple")
+@app.route("/<path:subpath>")
+def category_page(subpath: str):
+    template = pathlib.Path(subpath).with_suffix(".html")
+    if not (TEMPLATES_PATH / template).exists():
+        abort(404)
 
-@app.route("/cubing/progress")
-def cubing_progress():
-    return render_template("cubing/progress.html", title="progress", content_colour="blue")
-
-@app.route("/services/minecraft")
-def serv_minecraft():
-    return render_template("services/minecraft.html", title="minecraft", content_colour="teal")
-
-@app.route("/other/hmmmmmmmm")
-def other_hmmmmmmmm():
-    return render_template("other/hmmmmmmmm.html", title="hmmmmmmmm", content_colour="green")
+    # split the route path to get category info
+    category, page = pathlib.Path(subpath).parts[:2]
+    return render_template(
+        str(template),
+        title=page,
+        content_colour=SIDEBAR_LAYOUT[category].colour,
+        sidebar=SIDEBAR_LAYOUT,
+    )
