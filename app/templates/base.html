@@ -2,47 +2,47 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>{{ title }} - kingsley's things</title>
+    <title>{{ title }} - kingsley website!</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   </head>
   <body>
     <div class="container">
       <div class="sidebar">
         <div class="sidebar__group colour-block--red">
-          <a href="#" class="sidebar__title">kingsley website :D</a>
+          <a href="/" class="sidebar__title">kingsley website :D</a>
         </div>
         <div class="sidebar__group colour-block--purple">
           <a href="#" class="sidebar__title">photography</a>
           <ul>
-            <li><a href="#">gallery</a></li>
-            <li><a href="#">equipment</a></li>
+            <li><a href="/photography/gallery">gallery</a></li>
+            <li><a href="/photography/equipment">equipment</a></li>
           </ul>
         </div>
         <div class="sidebar__group colour-block--blue">
           <a href="#" class="sidebar__title">cubing</a>
           <ul>
-            <li><a href="#">progress</a></li>
+            <li><a href="/cubing/progress">progress</a></li>
           </ul>
         </div>
         <div class="sidebar__group colour-block--teal">
           <a href="#" class="sidebar__title">services</a>
           <ul>
-            <li><a href="#">osu!</a></li>
-            <li><a href="#">minecraft</a></li>
+            <li><a href="https://osu.skrungly.com/">osu!</a></li>
+            <li><a href="/services/minecraft">minecraft</a></li>
           </ul>
         </div>
         <div class="sidebar__group colour-block--green">
           <a href="#" class="sidebar__title">other</a>
           <ul>
-            <li><a href="#">hmmmmmmmm</a></li>
+            <li><a href="/other/hmmmmmmmm">hmmmmmmmm</a></li>
           </ul>
         </div>
         <div class="sidebar__group colour-block--black">
-          <a href="#" class="sidebar__title">source</a>
+          <a href="https://github.com/skrungly/kingsley-website" class="sidebar__title">source</a>
         </div>
       </div>
-      <div class="content colour-block--purple">
-        aaaaaaaa aaaaaa aaaaaaaaaa aaaaa aaaa aaaaaaaaa aa aaaaaaaaaa aa aaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaa aaaaaaa aaa a aaaaaaaaaa aaa a aaaaaaaaaa aaaaaaaaa aaaa aaaaaaaaa aaaaaaaaa aa a aaaaaa aaaaaaaaa aaaaa aa aaa aaaaaaaa aa aa aaaa a aaaa aaaa aaaa aa aa aaaaaaaaa aaaa aa aaa aaaaaaaaaa aa aaaaaaa aaaa aa aaaaaaaa aaaaaa aaaaaaaa a aaaaaaaa aaaaaaaaa aaaaaaaaaa aaaaaaaa aaaa aaaaaaaaaa aaaaaaaa aaaaaaa aa a aaaaaa aaaaaaaa aaaaa aaaaaa aaaaaaa aaa aaaa aaaaa aaaaaaaaaa aa aaaa aaaaaaa aaaaaaaaa aaaaaaa aaa aaaaaaaaaa aaaaaaa aaaaaaaaa aaaaaaaaaa aaaaaaaa aaaa aaaaaaaa aaaaa a aaaaaaaa aaaaaaa a aaaaaaaa aaaaa aaa a aaaaaa aaa a aaa aaaaaaaaa aaa aaaaa aa aa aaaaaa aaaaaaa aaaaaaaaa aaaaaaa aaaaa aa a aaa aaaa aaaaaaaaa aaaaaaaa aa aaa aaaaaa aaaaaaaa aaaaaaaa aaaa aaaa aaa aa aaaaa a aaaaa a aaaaaaa a aaaa aa aaaaaaaaa aaaaaaaaa aaaaa aaaaa aaaaaaa aaa aa aaaa aa aaaaaaaaaa aaa aaaaaaaaa aaaaaaaa aaaaaaaaaa aa aaaaaaaa aa aa aaaaaaaaaa a aaaaaa aaaaaaaa aa aa aaaa aaaaa aaaaaaa aaaaaaaaa aaaaaa aaaaaaaaa aaaa aaaaa aaaaa aaaaaaaaa aaaaaaa a aaaaaaaa aaaaaaaaa a aaaaaaaaa aaa aaaaaaaaa aaaaaaa aaaaaaaaa aaaaaaaa aaaaaa aaaaaa aaa aa aaa aaaaaaaaa aaaaaaaaa aa aa aaaaaa aaaaaaaa aaaaaaaa aaaa aa aaaaaa aaaaa aaa a aa aaaaa aaaa aaa
+      <div class="content colour-block--{{ content_colour }}">
+        {% block content %}{% endblock %}
       </div>
     </div>
   </body>

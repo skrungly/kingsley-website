@@ -7,6 +7,64 @@ a {
   text-decoration: none;
 }
 
+h1, h2, h3 {
+  margin: 0.25em 0;
+}
+
+.colour-block--red {
+  border-left: 0.2em solid #b3476c;
+  background-color: #b3476c20;
+
+  a:hover, .sidebar__title, h1, h2, h3 {
+    color: #b3476c;
+  }
+}
+
+.colour-block--purple {
+  border-left: 0.2em solid #9247b3;
+  background-color: #9247b320;
+
+  a:hover, .sidebar__title, h1, h2, h3 {
+    color: #9247b3;
+  }
+}
+
+.colour-block--blue {
+  border-left: 0.2em solid #4759b3;
+  background-color: #4759b320;
+
+  a:hover, .sidebar__title, h1, h2, h3 {
+    color: #4759b3;
+  }
+}
+
+.colour-block--teal {
+  border-left: 0.2em solid #479cb3;
+  background-color: #479cb320;
+
+  a:hover, .sidebar__title, h1, h2, h3 {
+    color: #479cb3;
+  }
+}
+
+.colour-block--green {
+  border-left: 0.2em solid #4db347;
+  background-color: #4db34720;
+
+  a:hover, .sidebar__title, h1, h2, h3 {
+    color: #4db347;
+  }
+}
+
+.colour-block--black {
+  border-left: 0.2em solid #b1b1b1;
+  background-color: #b1b1b120;
+
+  a:hover, .sidebar__title, h1, h2, h3 {
+    color: #b1b1b1;
+  }
+}
+
 .container {
   display: flex;
   flex-direction: row;
@@ -59,56 +117,20 @@ a {
   flex-grow: 1;
 }
 
-.colour-block--red {
-  border-left: 0.2em solid #b3476c;
-  background-color: #b3476c20;
-
-  a:hover, .sidebar__title {
-    color: #b3476c;
-  }
+.gallery {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
 }
 
-.colour-block--purple {
-  border-left: 0.2em solid #9247b3;
-  background-color: #9247b320;
+.gallery__row {
+  display: flex;
+  flex-flow: row;
+  flex-shrink: 1;
 
-  a:hover, .sidebar__title {
-    color: #9247b3;
-  }
-}
-
-.colour-block--blue {
-  border-left: 0.2em solid #4759b3;
-  background-color: #4759b320;
-
-  a:hover, .sidebar__title {
-    color: #4759b3;
-  }
-}
-
-.colour-block--teal {
-  border-left: 0.2em solid #479cb3;
-  background-color: #479cb320;
-
-  a:hover, .sidebar__title {
-    color: #479cb3;
-  }
-}
-
-.colour-block--green {
-  border-left: 0.2em solid #4db347;
-  background-color: #4db34720;
-
-  a:hover, .sidebar__title {
-    color: #4db347;
-  }
-}
-
-.colour-block--black {
-  border-left: 0.2em solid #b1b1b1;
-  background-color: #b1b1b120;
-
-  a:hover, .sidebar__title {
-    color: #b1b1b1;
+  img {
+    margin: 0.5em;
+    width: 100%;
+    border: 0.2em solid #9247b3;
   }
 }
