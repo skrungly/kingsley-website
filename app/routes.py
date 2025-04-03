@@ -3,7 +3,12 @@ import pathlib
 from flask import abort, render_template
 
 from app import app
-from app.constants import TEMPLATES_PATH, SIDEBAR_LAYOUT
+from app.utils import (
+    generate_gallery,
+    GALLERY_TITLES,
+    SIDEBAR_LAYOUT,
+    TEMPLATES_PATH,
+)
 
 
 @app.route("/")
@@ -29,4 +34,6 @@ def category_page(subpath: str):
         title=page,
         content_colour=SIDEBAR_LAYOUT[category].colour,
         sidebar=SIDEBAR_LAYOUT,
+        gallery_images=generate_gallery(),
+        gallery_titles=GALLERY_TITLES,
     )

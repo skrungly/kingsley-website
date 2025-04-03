@@ -2,6 +2,29 @@ import pathlib
 from dataclasses import dataclass
 
 
+APP_PATH = pathlib.Path.cwd() / "app"
+TEMPLATES_PATH = APP_PATH / "templates"
+STATIC_PATH = GALLERY_PATH = APP_PATH / "static"
+
+GALLERY_COLUMNS = 4
+GALLERY_PATH = STATIC_PATH / "gallery"
+GALLERY_TITLES = {
+    "camera": "pictures taken on a camera!",
+    "dsi": "pictures taken on a nintendo DSi!",
+}
+
+
+def generate_gallery():
+    images = {}
+    for group in GALLERY_TITLES:
+        img_dir = GALLERY_PATH / group
+        images[group] = [
+            i.relative_to(STATIC_PATH) for i in img_dir.iterdir()
+        ]
+
+    return images
+
+
 # overengineered dynamic sidebar? maybe!
 @dataclass
 class SidebarGroup:
@@ -32,7 +55,6 @@ class SidebarGroup:
         return layout
 
 
-TEMPLATES_PATH = pathlib.Path.cwd() / "app" / "templates"
 SIDEBAR_LAYOUT = SidebarGroup.generate_layout((
     ("photography", "purple"),
     ("cubing", "blue"),

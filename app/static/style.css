@@ -11,6 +11,10 @@ h1, h2, h3 {
   margin: 0.25em 0;
 }
 
+img {
+  border: 0.2em solid #9247b3;
+}
+
 .colour-block--red {
   border-left: 0.2em solid #b3476c;
   background-color: #b3476c20;
@@ -89,7 +93,6 @@ h1, h2, h3 {
 }
 
 .sidebar__group {
-  flex-grow: 0;
   padding: 0.25em 0.5em;
   margin: 0.25em;
 
@@ -119,18 +122,13 @@ h1, h2, h3 {
 
 .gallery {
   display: flex;
-  flex-flow: row;
   flex-wrap: wrap;
-}
-
-.gallery__row {
-  display: flex;
-  flex-flow: row;
-  flex-shrink: 1;
+  margin-bottom: 1em;
 
   img {
+    flex: auto;
+    height: 30vh;
     margin: 0.5em;
-    width: 100%;
-    border: 0.2em solid #9247b3;
+    object-fit: cover;
   }
 }
