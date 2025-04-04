@@ -41,6 +41,7 @@ class GalleryImage:
         # bit of a hack, but it works
         if img_path.name.startswith("HNI_"):
             metadata_lines.append("Nintendo DSi")
+            metadata_lines.append("640x480 (0.3MP)")
 
         exif = img._getexif()
         if not exif:
@@ -64,7 +65,8 @@ class GalleryImage:
         if iso_speed := exif_tags.get("ISOSpeedRatings"):
             photo_spec.append(f"ISO{iso_speed}")
 
-        photo_spec.append(f"{img.width}x{img.height}")
+        megapixels = (img.width * img.height) / 1000000
+        photo_spec.append(f"{img.width}x{img.height} ({megapixels:.01f}MP)")
 
         metadata_lines.append(" ".join(photo_spec))
         return "\n".join(metadata_lines)
