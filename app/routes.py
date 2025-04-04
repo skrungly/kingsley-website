@@ -4,8 +4,7 @@ from flask import abort, render_template
 
 from app import app
 from app.utils import (
-    generate_gallery,
-    GALLERY_TITLES,
+    GALLERY_IMAGES,
     SIDEBAR_LAYOUT,
     TEMPLATES_PATH,
 )
@@ -34,6 +33,5 @@ def category_page(subpath: str):
         title=page,
         content_colour=SIDEBAR_LAYOUT[category].colour,
         sidebar=SIDEBAR_LAYOUT,
-        gallery_images=generate_gallery(),
-        gallery_titles=GALLERY_TITLES,
+        gallery_images=GALLERY_IMAGES,
     )

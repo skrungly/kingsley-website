@@ -3,12 +3,21 @@
 {% block content %}
 <h2>gallery</h2>
 <p>here are some of the pictures i've taken :)</p>
-{% for img_group, title in gallery_titles.items() %}
-<h3>{{ title }}</h3>
 <div class="gallery">
-  {% for img_path in gallery_images[img_group] %}
-  <img src="{{ url_for('static', filename=img_path) }}" loading="lazy">
+  {% for img in gallery_images %}
+  <img src="{{ url_for('static', filename=img.thumb) }}" onclick="showViewer(this)" loading="lazy" data-metadata="{{ img.metadata }}">
   {% endfor %}
 </div>
-{% endfor %}
+
+<div id="gallery_viewer" class="gallery__viewer gallery__viewer--hidden">
+  <a id="gallery_original">
+    <img id="gallery_fullsize" class="gallery__fullsize">
+  </a>
+  <p id="gallery_caption"></p>
+  <div class="gallery__slideshow">
+    {% for img in gallery_images %}
+    <img src="{{ url_for('static', filename=img.thumb) }}" onclick="showViewer(this)" data-metadata="{{ img.metadata }}">
+    {% endfor %}
+  </div>
+</div>
 {% endblock content %}

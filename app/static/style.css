@@ -12,7 +12,7 @@ h1, h2, h3 {
 }
 
 img {
-  border: 0.2em solid #9247b3;
+  border: 0.1em solid #9247b3;
 }
 
 .colour-block--red {
@@ -127,8 +127,47 @@ img {
 
   img {
     flex: auto;
-    height: 30vh;
+    height: 25vh;
     margin: 0.5em;
     object-fit: cover;
+    cursor: pointer;
+  }
+}
+
+.gallery__viewer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000bf;
+  color: #ffffff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.gallery__viewer--hidden {
+  display: none;
+}
+
+.gallery__fullsize {
+  height: 70vh;
+  margin: 1vh;
+}
+
+.gallery__slideshow {
+  display: flex;
+  flex-direction: row;
+  overflow: scroll;
+  margin-top: auto;
+
+  img {
+    margin: 0.5em;
+    height: 10vh;
+    max-width: 100%;
+    cursor: pointer;
   }
 }
