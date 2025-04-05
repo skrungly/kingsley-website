@@ -77,11 +77,18 @@ class GalleryImage:
 
     @classmethod
     def generate_gallery(cls):
-        gallery = []
+        print(" * Ensuring gallery thumbnails are present...")
 
+        img_paths = []
         for file in GALLERY_PATH.iterdir():
             if file.is_file():
-                gallery.append(cls(file))
+                img_paths.append(file)
+
+        gallery = []
+        padding = len(str(len(img_paths)))
+        for i, file in enumerate(img_paths, 1):
+            print(f"     ({i:0{padding}d}/{len(img_paths)}) {file.name}")
+            gallery.append(cls(file))
 
         return gallery
 
