@@ -2,7 +2,18 @@
 
 {% block content %}
 <h2>gallery</h2>
-<p>here are some of the pictures i've taken :)</p>
+<p>
+  here are a handful of the pictures i've taken over the years, in no
+  particular order!
+</p>
+<p>
+  you may click on any preview to see the original photo in full quality and
+  find out how it was taken. however, be aware that you are at the mercy of my
+  home internet upload speed, so please have patience! most of these photos
+  are taken directly from the camera, but those which have been cropped or
+  edited are indicated as such in their file name (except for some pictures
+  taken on my nintendo DSi, as it can apply fun effects while shooting).
+</p>
 <div class="gallery">
   {% for img in gallery_images %}
   <img src="{{ url_for('static', filename=img.thumb) }}" onclick="showViewer(this)" loading="lazy" data-metadata="{{ img.metadata }}">
@@ -10,10 +21,12 @@
 </div>
 
 <div id="gallery_viewer" class="gallery__viewer gallery__viewer--hidden">
-  <a id="gallery_original">
-    <img id="gallery_fullsize" class="gallery__fullsize">
-  </a>
-  <p id="gallery_caption"></p>
+  <div class="gallery__fullsize">
+    <a id="gallery_original">
+      <img id="gallery_fullsize" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+    </a>
+    <p id="gallery_caption"></p>
+  </div>
   <div class="gallery__slideshow">
     {% for img in gallery_images %}
     <img src="{{ url_for('static', filename=img.thumb) }}" onclick="showViewer(this)" data-metadata="{{ img.metadata }}">

@@ -127,7 +127,7 @@ img {
 
   img {
     flex: auto;
-    height: 25vh;
+    max-height: 20vh;
     margin: 0.5em;
     object-fit: cover;
     cursor: pointer;
@@ -156,8 +156,13 @@ img {
 }
 
 .gallery__fullsize {
-  height: 70vh;
-  margin: 1vh;
+  margin: auto;
+
+  img {
+    max-height: 70vh;
+    max-width: 90%;
+    margin: 1vh;
+  }
 }
 
 .gallery__slideshow {
