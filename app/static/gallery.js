@@ -22,7 +22,7 @@ window.addEventListener("load", function () {
     // we want the photo viewer to close when clicking outside any images.
     // to do this, we have to add a click listener and check the target
     viewer_element.addEventListener("click", function (event) {
-        if (event.target.nodeName != "IMG") {
+        if (event.target.nodeName != "IMG" && event.target.nodeName != "P") {
             viewer_element.classList.add("gallery__viewer--hidden")
             blankViewer()
         }
