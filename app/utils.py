@@ -48,7 +48,6 @@ class GalleryImage:
             return "\n".join(metadata_lines)
 
         exif_tags = {ExifTags.TAGS.get(k, k): v for k, v in exif.items()}
-        metadata_lines.append(exif_tags["Model"] or "Other camera")
 
         photo_spec = []
         if exp_time := exif_tags.get("ExposureTime"):
@@ -68,7 +67,12 @@ class GalleryImage:
         megapixels = (img.width * img.height) / 1000000
         photo_spec.append(f"{img.width}x{img.height} ({megapixels:.01f}MP)")
 
+        metadata_lines.append(exif_tags["Model"] or "Unknown camera")
         metadata_lines.append(" ".join(photo_spec))
+
+        if caption := exif_tags.get("ImageDescription"):
+            metadata_lines.append("\n" + caption)
+
         return "\n".join(metadata_lines)
 
     @classmethod

@@ -16,20 +16,31 @@
 </p>
 <div class="gallery">
   {% for img in gallery_images %}
-  <img src="{{ url_for('static', filename=img.thumb) }}" onclick="showViewer(this)" loading="lazy" data-metadata="{{ img.metadata }}">
+  <img
+    src="{{ url_for('static', filename=img.thumb) }}"
+    onclick="showViewer(this)"
+    loading="lazy"
+    data-metadata="{{ img.metadata }}"
+  >
   {% endfor %}
 </div>
 
-<div id="gallery_viewer" class="gallery__viewer gallery__viewer--hidden">
+<div id="gallery__viewer" class="gallery__viewer gallery__viewer--hidden">
   <div class="gallery__fullsize">
-    <a id="gallery_original">
-      <img id="gallery_fullsize" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+    <a id="gallery__original">
+      <!-- default to a blank gif, embedded here for speed -->
+      <img id="gallery__fullsize" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
     </a>
-    <p id="gallery_caption"></p>
+    <p id="gallery__metadata"></p>
   </div>
   <div class="gallery__slideshow">
     {% for img in gallery_images %}
-    <img src="{{ url_for('static', filename=img.thumb) }}" onclick="showViewer(this)" data-metadata="{{ img.metadata }}">
+    <img
+      src="{{ url_for('static', filename=img.thumb) }}"
+      onclick="showViewer(this)"
+      loading="lazy"
+      data-metadata="{{ img.metadata }}"
+    >
     {% endfor %}
   </div>
 </div>
