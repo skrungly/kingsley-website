@@ -7,20 +7,17 @@ from PIL import ExifTags, Image, ImageOps
 APP_PATH = pathlib.Path.cwd() / "app"
 TEMPLATES_PATH = APP_PATH / "templates"
 STATIC_PATH = GALLERY_PATH = APP_PATH / "static"
-
 GALLERY_PATH = STATIC_PATH / "gallery"
+CUBING_PATH = STATIC_PATH / "assets" / "cubing"
 
 THUMBNAIL_SIZE = (640, 640)
 THUMBNAIL_PATH = GALLERY_PATH / "thumbs"
 THUMBNAIL_PATH.mkdir(exist_ok=True)
 
+CUBING_FILE_REGEX = re.compile("Solves_333_Normal_(.*).txt")
 
-@dataclass
+
 class GalleryImage:
-    path: str
-    thumb: str
-    metadata: str
-
     def __init__(self, img_path):
         with Image.open(img_path) as img:
             ImageOps.exif_transpose(img, in_place=True)
@@ -102,11 +99,6 @@ class SidebarGroup:
     title: str
     colour: str
     pages: dict[str, str]
-
-    def __init__(self, title: str, colour: str, pages: dict):
-        self.title = title
-        self.colour = colour
-        self.pages = pages
 
     @classmethod
     def generate_layout(cls, groups: tuple[str, str]):
