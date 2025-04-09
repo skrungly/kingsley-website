@@ -1,5 +1,8 @@
+import csv
 import pathlib
+import re
 from dataclasses import dataclass
+from datetime import datetime, timedelta
 
 from PIL import ExifTags, Image, ImageOps
 
@@ -7,14 +10,69 @@ from PIL import ExifTags, Image, ImageOps
 APP_PATH = pathlib.Path.cwd() / "app"
 TEMPLATES_PATH = APP_PATH / "templates"
 STATIC_PATH = GALLERY_PATH = APP_PATH / "static"
-GALLERY_PATH = STATIC_PATH / "gallery"
-CUBING_PATH = STATIC_PATH / "assets" / "cubing"
 
+GALLERY_PATH = STATIC_PATH / "gallery"
 THUMBNAIL_SIZE = (640, 640)
 THUMBNAIL_PATH = GALLERY_PATH / "thumbs"
 THUMBNAIL_PATH.mkdir(exist_ok=True)
 
-CUBING_FILE_REGEX = re.compile("Solves_333_Normal_(.*).txt")
+CUBING_PATH = STATIC_PATH / "cubing"
+CUBING_FILE_REGEX = re.compile(r"Solves_333_Normal_(.+)\.txt")
+
+# splits a duration string like "1:01.30" or "49.08" into
+# groups of minutes (optional), seconds, and milliseconds.
+CUBING_DURATION_REGEX = re.compile(r"(?:(\d+)(?=:):)?(\d+)\.(\d+)")
+
+
+@dataclass
+class TimedSolve:
+    duration: timedelta
+    scramble: str
+    dnf: bool
+    timestamp: datetime
+
+
+@dataclass
+class CubingStats:
+    solves: list[TimedSolve]
+    timestamp: datetime
+
+    @classmethod
+    def from_newest_file(cls):
+        # the filename is timestamped in ISO format so we can
+        # find the newest one by doing string comparisons
+        newest_stats_file = max(CUBING_PATH.iterdir())
+
+        stats_timestamp = datetime.strptime(
+            CUBING_FILE_REGEX.match(newest_stats_file.name).group(1),
+            r"%Y-%m-%d_%H-%M",
+        )
+
+        timed_solves = []
+        with open(newest_stats_file, newline="") as csv_file:
+            stats_reader = csv.reader(csv_file, delimiter=";", quotechar="\"")
+
+            for row in stats_reader:
+                # solved tagged with "DNF" have four parts.
+                dnf = len(row) == 4
+                duration, scramble, timestamp = row[:3]
+
+                match = CUBING_DURATION_REGEX.match(duration)
+                duration = timedelta(
+                    minutes=int(match.group(1) or "0"),
+                    seconds=int(match.group(2)),
+                    milliseconds=int(match.group(3)),
+                )
+
+                timestamp = datetime.strptime(
+                    timestamp, r"%Y-%m-%dT%H:%M:%S.%f%z"
+                )
+
+                timed_solves.append(
+                    TimedSolve(duration, scramble, timestamp, dnf)
+                )
+
+        return cls(timed_solves, stats_timestamp)
 
 
 class GalleryImage:
@@ -90,9 +148,6 @@ class GalleryImage:
         return gallery
 
 
-GALLERY_IMAGES = GalleryImage.generate_gallery()
-
-
 # overengineered dynamic sidebar? maybe!
 @dataclass
 class SidebarGroup:
@@ -117,6 +172,10 @@ class SidebarGroup:
 
         return layout
 
+
+CUBING_STATS = CubingStats.from_newest_file()
+
+GALLERY_IMAGES = GalleryImage.generate_gallery()
 
 SIDEBAR_LAYOUT = SidebarGroup.generate_layout((
     ("photography", "purple"),
