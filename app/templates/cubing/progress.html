@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>progress</h2>
-<p>currently learning F2L and have most PLL down too!</p>
+<h2>cubing</h2>
+<p>
+    i solve rubiks cubes in <b>{{
+        "%0.2f" | format(cubing_stats.avg_of(100).total_seconds())
+    }}</b> seconds on average, with <b>{{
+        "%0.2f" | format(cubing_stats.pb.duration.total_seconds())
+    }}</b> seconds as my personal best!
+</p>
 {% endblock content %}

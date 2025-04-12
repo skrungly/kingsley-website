@@ -135,6 +135,10 @@ class CubingStats:
         self._best_avg_cache[sample_size] = best_avg
         return best_avg
 
+    @property
+    def pb(self):
+        return min(self.solves)
+
 
 class GalleryImage:
     def __init__(self, img_path):
