@@ -51,8 +51,7 @@ ul {
 }
 
 main {
-  flex-basis: 60%;
-  max-width: 80em;
+  flex-basis: 80em;
   padding: 0.25em 0.5em;
   margin: 0.25em;
 }
@@ -60,9 +59,10 @@ main {
 nav {
   display: flex;
   flex-direction: column;
+  flex-basis: 12em;
+  flex-shrink: 0;
   justify-content: flex-start;
   align-self: flex-start;
-  min-width: 12em;
 
   position: sticky;
   top: 0.5em;
