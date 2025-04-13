@@ -3,18 +3,18 @@
   <head>
     <meta charset="utf-8">
     <title>{{ title }} - kingsley website!</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
     {% block head %}{% endblock %}
   </head>
   <body>
-    <div class="container">
-      <div class="sidebar">
-        <div class="sidebar__group colour-block--red">
-          <a href="/" class="sidebar__title">kingsley website :D</a>
+    <div class="page">
+      <nav>
+        <div class="nav__group colour-block--red">
+          <a href="/" class="nav__title">kingsley website :D</a>
         </div>
-        {% for group in sidebar.values() %}
-        <div class="sidebar__group colour-block--{{ group.colour }}">
-          <a href="#" class="sidebar__title">{{ group.title }}</a>
+        {% for group in navbar.values() %}
+        <div class="nav__group colour-block--{{ group.colour }}">
+          <a href="#" class="nav__title">{{ group.title }}</a>
           <ul>
             {% for page, page_url in group.pages.items() %}
             <li><a href="{{ page_url }}">{{ page }}</a></li>
@@ -22,13 +22,13 @@
           </ul>
         </div>
         {% endfor %}
-        <div class="sidebar__group colour-block--black">
-          <a href="https://github.com/skrungly/kingsley-website" class="sidebar__title">source</a>
+        <div class="nav__group colour-block--black">
+          <a href="https://github.com/skrungly/kingsley-website" class="nav__title">source</a>
         </div>
-      </div>
-      <div class="content colour-block--{{ content_colour }}">
+      </nav>
+      <main class="colour-block--{{ content_colour }}">
         {% block content %}{% endblock %}
-      </div>
+      </main>
     </div>
   </body>
 </html>

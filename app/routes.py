@@ -6,7 +6,7 @@ from app import app
 from app.utils import (
     CUBING_STATS,
     GALLERY_IMAGES,
-    SIDEBAR_LAYOUT,
+    NAVBAR_LAYOUT,
     TEMPLATES_PATH,
 )
 
@@ -17,7 +17,7 @@ def index():
         "index.html",
         title="home",
         content_colour="red",
-        sidebar=SIDEBAR_LAYOUT,
+        navbar=NAVBAR_LAYOUT,
     )
 
 
@@ -32,8 +32,8 @@ def category_page(subpath: str):
     return render_template(
         str(template),
         title=page,
-        content_colour=SIDEBAR_LAYOUT[category].colour,
-        sidebar=SIDEBAR_LAYOUT,
+        content_colour=NAVBAR_LAYOUT[category].colour,
+        navbar=NAVBAR_LAYOUT,
         gallery_images=GALLERY_IMAGES,
         cubing_stats=CUBING_STATS,
     )

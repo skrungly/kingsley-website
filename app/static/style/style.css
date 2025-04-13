@@ -78,20 +78,20 @@ ul {
   }
 }
 
-.container {
+.page {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.content {
+main {
   width: 70%;
   max-width: 80em;
   padding: 0.25em 0.5em;
   margin: 0.25em;
 }
 
-.sidebar {
+nav {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -103,7 +103,7 @@ ul {
   overflow: scroll;
 }
 
-.sidebar__group {
+.nav__group {
   padding: 0.5em;
   margin: 0.25em;
 
@@ -131,7 +131,7 @@ ul {
   }
 }
 
-.sidebar__group:last-of-type {
+.nav__group:last-of-type {
   flex-grow: 1;
 }
 

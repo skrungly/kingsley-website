@@ -225,9 +225,8 @@ class GalleryImage:
         return gallery
 
 
-# overengineered dynamic sidebar? maybe!
 @dataclass
-class SidebarGroup:
+class NavGroup:
     title: str
     colour: str
     pages: dict[str, str]
@@ -236,16 +235,15 @@ class SidebarGroup:
     def generate_layout(cls, groups: tuple[str, str]):
         # for each of the provided categories, check for
         # templates in the respective directoriess to
-        # generate the sidebar content procedurally
+        # generate the navbar content procedurally
         layout = {}
         for category, colour in groups:
-
             # generate a relative "href" link for each template
             pages = {}
             for template in (TEMPLATES_PATH / category).iterdir():
                 pages[template.stem] = f"/{category}/{template.stem}"
 
-            layout[category] = SidebarGroup(category, colour, pages)
+            layout[category] = cls(category, colour, pages)
 
         return layout
 
@@ -254,7 +252,7 @@ CUBING_STATS = CubingStats.from_newest_file()
 
 GALLERY_IMAGES = GalleryImage.generate_gallery()
 
-SIDEBAR_LAYOUT = SidebarGroup.generate_layout((
+NAVBAR_LAYOUT = NavGroup.generate_layout((
     ("photography", "purple"),
     ("cubing", "blue"),
     ("services", "teal"),
@@ -262,4 +260,4 @@ SIDEBAR_LAYOUT = SidebarGroup.generate_layout((
 ))
 
 # we can add some links manually too
-SIDEBAR_LAYOUT["services"].pages["osu!"] = "https://osu.skrungly.com/"
+NAVBAR_LAYOUT["services"].pages["osu!"] = "https://osu.skrungly.com/"
