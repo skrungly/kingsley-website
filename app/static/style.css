@@ -238,3 +238,26 @@ ul {
   flex-basis: 25em;
   margin-left: 1em;
 }
+
+.table-widget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h3 {
+    text-align: center;
+  }
+
+  table {
+    th {
+      text-align: left;
+      font-weight: normal;
+      padding: 0 0.25em
+    }
+
+    th:first-of-type {
+      text-align: right;
+      font-weight: bold;
+    }
+  }
+}
