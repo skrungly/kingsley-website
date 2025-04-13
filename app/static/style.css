@@ -201,40 +201,28 @@ ul {
   }
 }
 
-.section {
+figure {
   display: flex;
   flex-direction: column;
-  margin: 0.5em 0.5em 2em 0.5em;
-
-  h3 {
-    text-align: center;
-    width: 13em;
-  }
+  align-items: center;
+  margin: 1em;
 }
 
-.section > div {
+figure table th {
+  text-align: left;
+  font-weight: normal;
+  padding: 0 0.25em;
+}
+
+figure table th:first-of-type {
+  text-align: right;
+  font-weight: bold;
+}
+
+/* TODO: i think a SCSS overhall may be in order... */
+.section {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
   flex-wrap: wrap;
-  justify-content: center;
-}
-
-.section__image {
-  text-align: center;
-
-  p {
-    margin: 0.25em;
-    font-size: 12px;
-  }
-
-  img {
-    width: 15em;
-  }
-}
-
-.section__content {
-  flex-grow: 1;
-  min-width: 25em;
-  flex-basis: 25em;
-  margin-left: 1em;
 }

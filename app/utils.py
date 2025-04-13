@@ -1,20 +1,155 @@
+import csv
+import math
 import pathlib
+import re
 from dataclasses import dataclass
+from datetime import datetime, timedelta
 
 from PIL import ExifTags, Image, ImageOps
-
 
 APP_PATH = pathlib.Path.cwd() / "app"
 TEMPLATES_PATH = APP_PATH / "templates"
 STATIC_PATH = GALLERY_PATH = APP_PATH / "static"
-GALLERY_PATH = STATIC_PATH / "gallery"
-CUBING_PATH = STATIC_PATH / "assets" / "cubing"
 
+GALLERY_PATH = STATIC_PATH / "gallery"
 THUMBNAIL_SIZE = (640, 640)
 THUMBNAIL_PATH = GALLERY_PATH / "thumbs"
 THUMBNAIL_PATH.mkdir(exist_ok=True)
 
-CUBING_FILE_REGEX = re.compile("Solves_333_Normal_(.*).txt")
+CUBING_PATH = STATIC_PATH / "cubing"
+CUBING_FILE_REGEX = re.compile(r"Solves_333_Normal_(.+)\.txt")
+
+# splits a duration string like "1:01.30" or "49.08" into
+# groups of minutes (optional), seconds, and milliseconds.
+CUBING_DURATION_REGEX = re.compile(r"(?:(\d+)(?=:):)?(\d+)\.(\d+)")
+
+
+@dataclass
+class TimedSolve:
+    duration: timedelta
+    scramble: str
+    dnf: bool
+    timestamp: datetime
+
+    # define this "less than" operation such that DNF solves
+    # will always be put "slower" than any others when sorting
+    def __lt__(self, other):
+        if other.dnf and not self.dnf:
+            return True
+
+        if self.dnf:
+            return False
+
+        return self.duration < other.duration
+
+
+class CubingStats:
+    STANDARD_AVERAGES = (12, 50, 100, 500, 1000)
+    DECENT_THRESHOLDS = (18, 19, 20)
+
+    def __init__(self, solves, timestamp):
+        self.solves = solves
+        self._solves_by_duration = sorted(solves)
+        self.timestamp = timestamp
+        self._best_avg_cache = {}
+
+    @classmethod
+    def from_newest_file(cls):
+        # the filename is timestamped in ISO format so we can
+        # find the newest one by doing string comparisons
+        newest_stats_file = max(CUBING_PATH.iterdir())
+
+        stats_timestamp = datetime.strptime(
+            CUBING_FILE_REGEX.match(newest_stats_file.name).group(1),
+            r"%Y-%m-%d_%H-%M",
+        )
+
+        timed_solves = []
+        with open(newest_stats_file, newline="") as csv_file:
+            stats_reader = csv.reader(csv_file, delimiter=";", quotechar="\"")
+
+            for row in stats_reader:
+                # solves tagged with "DNF" have four parts rather than three
+                dnf = len(row) == 4
+                duration, scramble, timestamp = row[:3]
+
+                match = CUBING_DURATION_REGEX.match(duration)
+                duration = timedelta(
+                    minutes=int(match.group(1) or "0"),
+                    seconds=int(match.group(2)),
+                    milliseconds=int(match.group(3)) * 10,
+                )
+
+                timestamp = datetime.strptime(
+                    timestamp, r"%Y-%m-%dT%H:%M:%S.%f%z"
+                )
+
+                timed_solves.append(
+                    TimedSolve(duration, scramble, dnf, timestamp)
+                )
+
+        # should be already sorted from the file, but just in case
+        timed_solves.sort(key=lambda solve: solve.timestamp)
+        return cls(timed_solves, stats_timestamp)
+
+    @property
+    def pb(self):
+        return min(self.solves)
+
+    def fastest_solves(self, n):
+        return self._solves_by_duration[:n - 1]
+
+    def avg_of(self, sample_size, offset=0):
+        if sample_size > len(self.solves):
+            return None
+
+        sample_end = len(self.solves) - offset
+        sample_start = sample_end - sample_size
+        sample = self.solves[sample_start:sample_end]
+        sample.sort()
+
+        # aoX is calculated after truncating the 5% extremes
+        truncate = math.ceil(0.05 * sample_size)
+        truncated_sample = sample[truncate:-truncate]
+
+        # if any of the untruncated solves are DNF, then the
+        # whole average becomes a DNF, represented by None.
+        if truncated_sample[-1].dnf:
+            return None
+
+        total_duration = timedelta()
+        for solve in truncated_sample:
+            total_duration += solve.duration
+
+        return total_duration / len(truncated_sample)
+
+    def best_avg_of(self, sample_size):
+        # this is a fairly inefficient method of calculating these
+        # statistics so it's wise use a caching dictionary in order
+        # to eliminate unnecessary repeated calculations
+        if sample_size in self._best_avg_cache:
+            return self._best_avg_cache[sample_size]
+
+        if sample_size > len(self.solves):
+            return None
+
+        best_avg = None
+        for offset in range(len(self.solves) - sample_size + 1):
+            current_avg = self.avg_of(sample_size)
+
+            if current_avg is None:
+                continue
+
+            if best_avg is None or current_avg < best_avg:
+                best_avg = current_avg
+
+        self._best_avg_cache[sample_size] = best_avg
+        return best_avg
+
+    def sub(self, threshold):
+        return [
+            s for s in self.solves if s.duration.total_seconds() < threshold
+        ]
 
 
 class GalleryImage:
@@ -90,9 +225,6 @@ class GalleryImage:
         return gallery
 
 
-GALLERY_IMAGES = GalleryImage.generate_gallery()
-
-
 # overengineered dynamic sidebar? maybe!
 @dataclass
 class SidebarGroup:
@@ -117,6 +249,10 @@ class SidebarGroup:
 
         return layout
 
+
+CUBING_STATS = CubingStats.from_newest_file()
+
+GALLERY_IMAGES = GalleryImage.generate_gallery()
 
 SIDEBAR_LAYOUT = SidebarGroup.generate_layout((
     ("photography", "purple"),

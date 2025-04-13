@@ -1,6 +1,55 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>progress</h2>
-<p>currently learning F2L and have most PLL down too!</p>
+<h2>cubing</h2>
+<p>
+  i can solve a rubiks cube in <b>{{
+    "%0.2f" | format(cubing_stats.avg_of(100).total_seconds())
+  }}</b> seconds on average, with a personal best time of <b>{{
+    "%0.2f" | format(cubing_stats.pb.duration.total_seconds())
+  }}</b> seconds. i am currently working on F2L efficiency and
+  lookahead, as well as full PLL with single-look recognition.
+</p>
+
+<div class="section">
+  <figure>
+    <h3>recent averages</h3>
+    <table>
+      {% for sample_size in cubing_stats.STANDARD_AVERAGES if (sample_size < cubing_stats.solves | length) %}
+      <tr>
+        <th>ao{{ sample_size }}</th>
+        <th>{{ "%0.2f" | format(cubing_stats.avg_of(sample_size).total_seconds()) }} seconds</th>
+      </tr>
+      {% endfor %}
+    </table>
+  </figure>
+
+  <figure>
+    <h3>decent solves</h3>
+    <table>
+      {% for threshold in cubing_stats.DECENT_THRESHOLDS %}
+      <tr>
+        <th>sub-{{ threshold }}</th>
+        <th>{{ cubing_stats.sub(threshold) | length }} solves</th>
+      </tr>
+      {% endfor %}
+      <tr>
+        <th>out of</th>
+        <th>{{ cubing_stats.solves | length }} solves</th>
+      </tr>
+    </table>
+  </figure>
+
+  <figure>
+    <h3>best solves</h3>
+    <table>
+      {% for solve in cubing_stats.fastest_solves(5) %}
+      <tr>
+        <th>{{ loop.index }}. {{ "%0.2f" | format(solve.duration.total_seconds()) }}</th>
+        <th>{{ solve.scramble }}</th>
+      </tr>
+      {% endfor %}
+    </table>
+  </figure>
+</div>
 {% endblock content %}

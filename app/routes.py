@@ -4,6 +4,7 @@ from flask import abort, render_template
 
 from app import app
 from app.utils import (
+    CUBING_STATS,
     GALLERY_IMAGES,
     SIDEBAR_LAYOUT,
     TEMPLATES_PATH,
@@ -34,4 +35,5 @@ def category_page(subpath: str):
         content_colour=SIDEBAR_LAYOUT[category].colour,
         sidebar=SIDEBAR_LAYOUT,
         gallery_images=GALLERY_IMAGES,
+        cubing_stats=CUBING_STATS,
     )
