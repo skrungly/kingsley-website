@@ -33,12 +33,6 @@ ul {
   list-style: square;
 }
 
-.page {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-}
-
 @each $name, $colour in $colours {
   .colour-block--#{$name} {
     border-left: 0.2em solid $colour;
@@ -48,6 +42,12 @@ ul {
       color: $colour;
     }
   }
+}
+
+.page {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
 }
 
 main {
@@ -180,4 +180,10 @@ figure table th {
 figure table th:first-of-type {
   text-align: right;
   font-weight: bold;
+}
+
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
 }
