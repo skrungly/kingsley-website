@@ -44,8 +44,12 @@ class TimedSolve:
 
 
 class CubingStats:
+    STANDARD_AVERAGES = (12, 50, 100, 500, 1000)
+    DECENT_THRESHOLDS = (18, 19, 20)
+
     def __init__(self, solves, timestamp):
         self.solves = solves
+        self._solves_by_duration = sorted(solves)
         self.timestamp = timestamp
         self._best_avg_cache = {}
 
@@ -87,6 +91,13 @@ class CubingStats:
         # should be already sorted from the file, but just in case
         timed_solves.sort(key=lambda solve: solve.timestamp)
         return cls(timed_solves, stats_timestamp)
+
+    @property
+    def pb(self):
+        return min(self.solves)
+
+    def fastest_solves(self, n):
+        return self._solves_by_duration[:n - 1]
 
     def avg_of(self, sample_size, offset=0):
         if sample_size > len(self.solves):
@@ -135,9 +146,10 @@ class CubingStats:
         self._best_avg_cache[sample_size] = best_avg
         return best_avg
 
-    @property
-    def pb(self):
-        return min(self.solves)
+    def sub(self, threshold):
+        return [
+            s for s in self.solves if s.duration.total_seconds() < threshold
+        ]
 
 
 class GalleryImage:
