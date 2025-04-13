@@ -8,8 +8,8 @@ deployment with docker is planned but not yet implemented. in the meantime,
 launching the development server is as easy as:
 
 ```bash
-$ python -m venv venv  # initial run only
-$ source venv/bin/activate
-$ pip -r requirements.txt  # initial run only
+# with python and sass already installed:
+$ sass app/static/style/style.scss app/static/style/style.css
+$ pip -r requirements.txt
 $ python -m flask run --debug
 ```
