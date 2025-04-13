@@ -1,3 +1,12 @@
+$colours: (
+  "red": #b3476c,
+  "purple": #9247b3,
+  "blue": #4759b3,
+  "teal": #479cb3,
+  "green": #4db347,
+  "grey": #b1b1b1,
+);
+
 html {
   font-family: Helvetica, sans-serif;
   color: #000000;
@@ -12,7 +21,7 @@ a:hover {
   text-decoration: underline;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4, h5, h6 {
   margin: 0.25em 0;
 }
 
@@ -24,68 +33,25 @@ ul {
   list-style: square;
 }
 
-.colour-block--red {
-  border-left: 0.2em solid #b3476c;
-  background-color: #b3476c20;
-
-  a, a:hover, .sidebar__title, h1, h2, h3 {
-    color: #b3476c;
-  }
-}
-
-.colour-block--purple {
-  border-left: 0.2em solid #9247b3;
-  background-color: #9247b320;
-
-  a, a:hover, .sidebar__title, h1, h2, h3 {
-    color: #9247b3;
-  }
-}
-
-.colour-block--blue {
-  border-left: 0.2em solid #4759b3;
-  background-color: #4759b320;
-
-  a, a:hover, .sidebar__title, h1, h2, h3 {
-    color: #4759b3;
-  }
-}
-
-.colour-block--teal {
-  border-left: 0.2em solid #479cb3;
-  background-color: #479cb320;
-
-  a, a:hover, .sidebar__title, h1, h2, h3 {
-    color: #479cb3;
-  }
-}
-
-.colour-block--green {
-  border-left: 0.2em solid #4db347;
-  background-color: #4db34720;
-
-  a, a:hover, .sidebar__title, h1, h2, h3 {
-    color: #4db347;
-  }
-}
-
-.colour-block--black {
-  border-left: 0.2em solid #b1b1b1;
-  background-color: #b1b1b120;
-
-  a, a:hover, .sidebar__title, h1, h2, h3 {
-    color: #b1b1b1;
-  }
-}
-
 .page {
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   justify-content: center;
 }
 
+@each $name, $colour in $colours {
+  .colour-block--#{$name} {
+    border-left: 0.2em solid $colour;
+    background-color: rgba($colour, 0.12);
+
+    a, a:hover, .navbar__title, h1, h2, h3, h4, h5, h6 {
+      color: $colour;
+    }
+  }
+}
+
 main {
-  width: 70%;
+  flex-basis: 60%;
   max-width: 80em;
   padding: 0.25em 0.5em;
   margin: 0.25em;
@@ -96,9 +62,10 @@ nav {
   flex-direction: column;
   justify-content: flex-start;
   align-self: flex-start;
+  min-width: 12em;
+
   position: sticky;
   top: 0.5em;
-  min-width: 200px;
   height: calc(100vh - 1em);
   overflow: scroll;
 }
@@ -106,10 +73,6 @@ nav {
 .nav__group {
   padding: 0.5em;
   margin: 0.25em;
-
-  .sidebar__title {
-    font-weight: bold;
-  }
 
   a:hover {
     text-decoration: none;
@@ -123,11 +86,11 @@ nav {
 
   li {
     padding: 0.125em 0.75em;
-  }
 
-  li a {
-    font-weight: normal;
-    color: black;
+    a {
+      font-weight: normal;
+      color: #000000;
+    }
   }
 }
 
@@ -217,12 +180,4 @@ figure table th {
 figure table th:first-of-type {
   text-align: right;
   font-weight: bold;
-}
-
-/* TODO: i think a SCSS overhall may be in order... */
-.section {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  flex-wrap: wrap;
 }

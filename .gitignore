@@ -1,4 +1,7 @@
 app/__pycache__/
+venv/
+
 app/static/gallery
 app/static/cubing
-venv/
+app/static/style/*.css
+app/static/style/*.css.map
