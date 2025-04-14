@@ -1,26 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>cameras</h2>
-<p>
-  many of my best photos are taken with my dedicated digital cameras but i
-  often have the most fun when using more restrictive methods, such as the
-  simple camera on my nintendo DSi. i'd like to get my hands on a 35mm film
-  camera so that i can try a more thoughtful approach to photography!
-</p>
-<p>
-  almost all of the photos in my <a href="/photography/gallery">gallery</a>
-  were taken with one of these cameras:
-</p>
+<section>
+  <h2>cameras</h2>
+  <p>
+    many of my best photos are taken with my dedicated digital cameras but i
+    often have the most fun when using more restrictive methods, such as the
+    simple camera on my nintendo DSi. i'd like to get my hands on a 35mm film
+    camera so that i can try a more thoughtful approach to photography!
+  </p>
+  <p>
+    almost all of the photos in my <a href="/photography/gallery">gallery</a>
+    were taken with one of these cameras:
+  </p>
+</section>
 
-<div class="section">
-  <h3>nikon D5100</h3>
-  <div>
-    <div class="section__image">
+<section>
+  <div class="container">
+    <figure>
+      <h3>nikon D5100</h3>
       <img src="{{ url_for('static', filename='assets/d5100.jpg') }}">
-      <p>nikon d5100 with the 500mm walimex lens</p>
-    </div>
-    <div class="section__content">
+      <figcaption>nikon d5100 with the 500mm walimex lens</figcaption>
+    </figure>
+    <div class="header-offset">
       <p>
         this is my camera of choice when photography is the primary focus for a
         day out, since it's too bulky to carry around every day. i have three
@@ -33,16 +35,16 @@
       </ul>
     </div>
   </div>
-</div>
+</section>
 
-<div class="section">
-  <h3>canon ixus 185</h3>
-  <div>
-    <div class="section__image">
+<section>
+  <div class="container">
+    <figure>
+      <h3>canon ixus 185</h3>
       <img src="{{ url_for('static', filename='assets/ixus185.jpg') }}">
-      <p>canon ixus 185 focused on a macro subject</p>
-    </div>
-    <div class="section__content">
+      <figcaption>canon ixus 185 focused on a macro subject</figcaption>
+    </figure>
+    <div class="header-offset">
       <p>
         a lot of my best photos have been taken on this tiny camera because i
         always keep it on hand. its focal range is pretty decent, equivalent to
@@ -52,19 +54,19 @@
       </p>
     </div>
   </div>
-</div>
+</section>
 
-<div class="section">
-  <h3>nintendo DSi</h3>
-  <div>
-    <div class="section__image">
-      <img src="{{ url_for('static', filename='assets/ixus185.jpg') }}">
-      <p>my nintendo DSi with its modified housing</p>
-    </div>
-    <div class="section__content">
+<section>
+  <div class="container">
+    <figure>
+      <h3>nintendo DSi</h3>
+      <img src="{{ url_for('static', filename='assets/dsi.jpg') }}">
+      <figcaption>my nintendo DSi with its modified colours</figcaption>
+    </figure>
+    <div class="header-offset">
       <p>
         the nintendo DSi has a very simplistic point-and-shoot camera system
-        with a 0.3&nbsp;MP sensor behind it, producing photos with a dated
+        with a 0.3&nbsp;MP sensor behind it, producing photos with a unique
         digital aesthetic. it has a decent selection of effects but,
         unsurprisingly, very few of them are useful for taking actual photos.
         my main DSi has a modified enclosure which i made by swapping parts
@@ -72,5 +74,5 @@
       </p>
     </div>
   </div>
-</div>
+</section>
 {% endblock content %}

@@ -5,20 +5,23 @@
 {% endblock %}
 
 {% block content %}
-<h2>gallery</h2>
-<p>
-  here are a handful of the pictures i've taken over the years, in no
-  particular order!
-</p>
-<p>
-  you may click on any preview to see the original photo in full quality and
-  find out how it was taken. however, be aware that you are at the mercy of my
-  home internet upload speed, so please have patience! most of these photos
-  are taken directly from the camera, but those which have been cropped or
-  edited are indicated as such in their file name (except for some pictures
-  taken on my nintendo DSi, as it can apply fun effects while shooting).
-</p>
-<div class="gallery">
+<section>
+  <h2>gallery</h2>
+  <p>
+    here are a handful of the pictures i've taken over the years, in no
+    particular order!
+  </p>
+  <p>
+    you may click on any preview to see the original photo in full quality and
+    find out how it was taken. however, be aware that you are at the mercy of my
+    home internet upload speed, so please have patience! most of these photos
+    are taken directly from the camera, but those which have been cropped or
+    edited are indicated as such in their file name (except for some pictures
+    taken on my nintendo DSi, as it can apply fun effects while shooting).
+  </p>
+</section>
+
+<section class="gallery">
   {% for img in gallery_images %}
   <img
     src="{{ url_for('static', filename=img.thumb) }}"
@@ -27,7 +30,7 @@
     data-metadata="{{ img.metadata }}"
   >
   {% endfor %}
-</div>
+</section>
 
 <div id="gallery__viewer" class="gallery__viewer gallery__viewer--hidden">
   <div class="gallery__fullsize">
