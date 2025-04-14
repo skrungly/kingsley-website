@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>cubing</h2>
-<p>
-  i can solve a rubiks cube in <b>{{
-    "%0.2f" | format(cubing_stats.avg_of(100).total_seconds())
-  }}</b> seconds on average, with a personal best time of <b>{{
-    "%0.2f" | format(cubing_stats.pb.duration.total_seconds())
-  }}</b> seconds. i am currently working on F2L efficiency and
-  lookahead, as well as full PLL with single-look recognition.
-</p>
+<section>
+  <h2>cubing</h2>
+  <p>
+    i can solve a rubiks cube in <b>{{
+      "%0.2f" | format(cubing_stats.avg_of(100).total_seconds())
+    }}</b> seconds on average, with a personal best time of <b>{{
+      "%0.2f" | format(cubing_stats.pb.duration.total_seconds())
+    }}</b> seconds. i am currently working on F2L efficiency and
+    lookahead, as well as full PLL with single-look recognition.
+  </p>
+</section>
 
 <section class="container">
   <figure>
@@ -17,7 +19,7 @@
     <table>
       {% for sample_size in cubing_stats.STANDARD_AVERAGES if (sample_size < cubing_stats.solves | length) %}
       <tr>
-        <th>ao{{ sample_size }}</th>
+        <th><span class="colour-text">ao{{ sample_size }}</span></th>
         <th>{{ "%0.2f" | format(cubing_stats.avg_of(sample_size).total_seconds()) }} seconds</th>
       </tr>
       {% endfor %}
@@ -29,12 +31,12 @@
     <table>
       {% for threshold in cubing_stats.DECENT_THRESHOLDS %}
       <tr>
-        <th>sub-{{ threshold }}</th>
+        <th><span class="colour-text">sub-{{ threshold }}</span></th>
         <th>{{ cubing_stats.sub(threshold) | length }} solves</th>
       </tr>
       {% endfor %}
       <tr>
-        <th>out of</th>
+        <th><span class="colour-text">total timed</span></th>
         <th>{{ cubing_stats.solves | length }} solves</th>
       </tr>
     </table>
@@ -45,7 +47,10 @@
     <table>
       {% for solve in cubing_stats.fastest_solves(5) %}
       <tr>
-        <th>{{ loop.index }}. {{ "%0.2f" | format(solve.duration.total_seconds()) }}</th>
+        <th>
+          {{ loop.index }}.
+          <span class="colour-text">{{ "%0.2f" | format(solve.duration.total_seconds()) }}</span>
+        </th>
         <th>{{ solve.scramble }}</th>
       </tr>
       {% endfor %}
