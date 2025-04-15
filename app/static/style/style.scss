@@ -21,12 +21,12 @@ a:hover {
   text-decoration: underline;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  margin: 0.25em 0;
+p {
+  margin: 0.5em 0;
 }
 
-img {
-  border: 0.1em solid #9247b3;
+h1, h2, h3, h4, h5, h6 {
+  margin: 0.25em 0;
 }
 
 ul {
@@ -40,6 +40,10 @@ ul {
 
     a, a:hover, b, .navbar__title, .colour-text, h1, h2, h3, h4, h5, h6 {
       color: $colour;
+    }
+
+    img {
+      border: 0.1em solid $colour;
     }
   }
 }
@@ -198,10 +202,6 @@ figure {
   flex-flow: row wrap;
   justify-content: space-around;
   gap: 0.5em;
-
-  .header-offset {
-    margin-top: 1.5em;
-  }
 
   div {
     flex-basis: 0;
