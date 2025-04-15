@@ -256,7 +256,6 @@ NAVBAR_LAYOUT = NavGroup.generate_layout((
     ("photography", "purple"),
     ("cubing", "blue"),
     ("services", "teal"),
-    ("other", "green"),
 ))
 
 # we can add some links manually too
