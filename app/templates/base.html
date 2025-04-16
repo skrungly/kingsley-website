@@ -27,16 +27,22 @@
           </div>
           <ul class="nav__list">
             {% for page, page_url in group.pages.items() %}
-            <li><a href="{{ page_url }}">{{ page }}</a></li>
+            <li><a href="{{ page_url }}">
+              {{ page }}
+              {% if not page_url.startswith("/") %}
+                <span class="colour-text">*</span>
+              {% endif %}
+            </a></li>
             {% endfor %}
           </ul>
         </div>
         {% endfor %}
         <div class="nav__group colour-block--grey">
           <span class="nav__header">
-            <a class="nav__title" href="https://github.com/skrungly/kingsley-website">source</a>
+            <a class="nav__title" href="https://github.com/skrungly/kingsley-website">source *</a>
             <i class="fa-solid fa-code"></i>
           </span>
+          <span class="nav__footer">* external page</span>
         </div>
       </nav>
       <main class="colour-block--{{ content_colour }}">
