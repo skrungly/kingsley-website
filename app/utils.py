@@ -14,9 +14,11 @@ STATIC_PATH = GALLERY_PATH = APP_PATH / "static"
 GALLERY_PATH = STATIC_PATH / "gallery"
 THUMBNAIL_SIZE = (640, 640)
 THUMBNAIL_PATH = GALLERY_PATH / "thumbs"
-THUMBNAIL_PATH.mkdir(exist_ok=True)
+THUMBNAIL_PATH.mkdir(parents=True, exist_ok=True)
 
 CUBING_PATH = STATIC_PATH / "cubing"
+CUBING_PATH.mkdir(exist_ok=True)
+
 CUBING_FILE_REGEX = re.compile(r"Solves_333_Normal_(.+)\.txt")
 
 # splits a duration string like "1:01.30" or "49.08" into
@@ -57,7 +59,9 @@ class CubingStats:
     def from_newest_file(cls):
         # the filename is timestamped in ISO format so we can
         # find the newest one by doing string comparisons
-        newest_stats_file = max(CUBING_PATH.iterdir())
+        newest_stats_file = max(CUBING_PATH.iterdir(), default=None)
+        if not newest_stats_file:
+            return None
 
         stats_timestamp = datetime.strptime(
             CUBING_FILE_REGEX.match(newest_stats_file.name).group(1),
@@ -258,6 +262,15 @@ NAVBAR_LAYOUT = NavGroup.generate_layout((
     ("cubing", "blue", "cube"),
     ("services", "teal", "gears"),
 ))
+
+# if there isn't any appropriate content for these pages,
+# remove them from the navbar. the flask route will check
+# whether they're missing and return a 404 accordingly.
+if CUBING_STATS is None:
+    del NAVBAR_LAYOUT["cubing"]
+
+if not GALLERY_IMAGES:
+    del NAVBAR_LAYOUT["photography"].pages["gallery"]
 
 # we can add some links manually too
 NAVBAR_LAYOUT["services"].pages["osu!"] = "https://osu.skrungly.com/"

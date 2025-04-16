@@ -27,8 +27,13 @@ def category_page(subpath: str):
     if not (TEMPLATES_PATH / template).exists():
         abort(404)
 
-    # split the route path to get category info
+    # split the route path to get category info.
+    # if a page is missing from the navbar (e.g. it got auto-removed for
+    # lack of content, like a gallery without images) then return a 404.
     category, page = pathlib.Path(subpath).parts[:2]
+    if category not in NAVBAR_LAYOUT or page not in NAVBAR_LAYOUT[category].pages:
+        abort(404)
+
     return render_template(
         str(template),
         title=page,
