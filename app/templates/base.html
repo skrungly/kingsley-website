@@ -4,18 +4,27 @@
     <meta charset="utf-8">
     <title>{{ title }} - kingsley website!</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/font-awesome/css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/font-awesome/css/solid.min.css') }}">
     {% block head %}{% endblock %}
   </head>
   <body>
     <div class="page">
-      <nav>
+      <nav id="nav" class="nav--top-collapsed">
         <div class="nav__group colour-block--red">
-          <a href="/" class="nav__title">kingsley website :D</a>
+          <span class="nav__header">
+            <a class="nav__title" href="/">kingsley website</a>
+            <i id="nav__collapse-button" class="fa-solid fa-chevron-down"></i>
+            <i id="nav__main-icon" class="fa-solid fa-meteor"></i>
+          </span>
         </div>
         {% for group in navbar.values() %}
         <div class="nav__group colour-block--{{ group.colour }}">
-          <a href="#" class="nav__title">{{ group.title }}</a>
-          <ul>
+          <div class="nav__header">
+            <span class="nav__title">{{ group.title }}</span>
+            <i class="fa-solid fa-{{ group.icon }}"></i>
+          </div>
+          <ul class="nav__list">
             {% for page, page_url in group.pages.items() %}
             <li><a href="{{ page_url }}">{{ page }}</a></li>
             {% endfor %}
@@ -23,7 +32,10 @@
         </div>
         {% endfor %}
         <div class="nav__group colour-block--grey">
-          <a href="https://github.com/skrungly/kingsley-website" class="nav__title">source</a>
+          <span class="nav__header">
+            <a class="nav__title" href="https://github.com/skrungly/kingsley-website">source</a>
+            <i class="fa-solid fa-code"></i>
+          </span>
         </div>
       </nav>
       <main class="colour-block--{{ content_colour }}">

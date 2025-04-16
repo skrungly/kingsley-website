@@ -230,20 +230,21 @@ class NavGroup:
     title: str
     colour: str
     pages: dict[str, str]
+    icon: str
 
     @classmethod
-    def generate_layout(cls, groups: tuple[str, str]):
+    def generate_layout(cls, groups):
         # for each of the provided categories, check for
         # templates in the respective directoriess to
         # generate the navbar content procedurally
         layout = {}
-        for category, colour in groups:
+        for category, colour, icon in groups:
             # generate a relative "href" link for each template
             pages = {}
             for template in (TEMPLATES_PATH / category).iterdir():
                 pages[template.stem] = f"/{category}/{template.stem}"
 
-            layout[category] = cls(category, colour, pages)
+            layout[category] = cls(category, colour, pages, icon)
 
         return layout
 
@@ -253,9 +254,9 @@ CUBING_STATS = CubingStats.from_newest_file()
 GALLERY_IMAGES = GalleryImage.generate_gallery()
 
 NAVBAR_LAYOUT = NavGroup.generate_layout((
-    ("photography", "purple"),
-    ("cubing", "blue"),
-    ("services", "teal"),
+    ("photography", "purple", "camera"),
+    ("cubing", "blue", "cube"),
+    ("services", "teal", "gears"),
 ))
 
 # we can add some links manually too
