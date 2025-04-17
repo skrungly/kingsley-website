@@ -2,25 +2,35 @@
 
 just a small personal flask site, made for fun!
 
-### setup
+## setup
 
-for production, first install `docker` and `docker-compose`. the following
-command will start the server via gunicorn on a docker network called `proxy`:
+you'll need to install `docker` to launch the server.
+
+### for production
+
+ensure that `docker-compose` is also installed. set up a cloudflare tunnel
+with the desired configuration, and create a file called `.env` containing:
+
+```bash
+TUNNEL_TOKEN=<token here>
+```
+
+then deploy the server alongside nginx and gunicorn:
 
 ```bash
 $ docker-compose up -d
 ```
 
-note that by default, the service doesn't publish the port because it is
-intended to share the `proxy` network with a reverse proxy like nginx running
-in a different container. to run a development server instead, simply do:
+### for development
+
+to launch the flask server in debug mode:
 
 ```bash
 $ docker build -t "kingsley-website" .
 $ docker run -it "kingsley-website" flask run --debug
 ```
 
-the flask debug server should then display the address, something like:
+the flask server should then display the bound address, something like:
 
 ```
  * Running on http://172.17.0.2:5000

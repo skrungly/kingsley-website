@@ -1,5 +1,6 @@
 app/__pycache__/
 venv/
+.env
 
 app/static/gallery
 app/static/cubing
