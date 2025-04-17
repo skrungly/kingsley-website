@@ -1,0 +1,11 @@
+services:
+  wsgi:
+    build: .
+    networks:
+      proxy:
+        aliases:
+          - site
+
+networks:
+  proxy:
+    name: proxy
